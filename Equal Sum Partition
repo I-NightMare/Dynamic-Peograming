@@ -1,0 +1,84 @@
+The question That can be asked for this type of solution:-
+Partition problem is to determine whether a given set can be partitioned into two subsets such that the sum of elements in both subsets is the same. 
+-----------------code-----------------------------------------------------------------------------------------------------------------------------
+#include<iostream>
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{   
+    int t;
+    cout<<"How many times you want this code to run:- ";
+    cin>>t;
+    cout<<endl;
+    while(t--)
+    {
+        int n,sum=0;
+        cout<<"the length of array would be:- ";
+        cin>>n;
+        int arr[n];
+        cout<<endl;
+        for(int i=0;i<n;i++)
+        {
+            cin>>arr[i];
+            sum=sum+arr[i];
+        }
+        cout<<"The Array input is successful  "<<endl;
+        cout<<"your lenght of array is ["<<n<<"] and the sum is ["<<sum<<"]"<<endl;
+        if(sum%2!=0)//its odd
+        {
+            cout<<"false"<<endl;
+        }
+        else if(sum%2==0)//its even
+        {   
+            sum=sum/2;
+            int t[n+1][sum+1];
+            for(int i=0;i<n+1;i++)
+        {
+            for(int j=0;j<sum+1;j++)
+            {
+                if(i==0)
+                {
+                    t[i][j]=0;
+                }
+            }
+            for(int j=0;j<sum+1;j++)
+            {
+                if(j==0)
+                {
+                    t[i][j]=1;
+                }
+            }
+        }
+            //from here on n==i and sum==j
+            for(int i=1;i<n+1;i++)
+            {
+                for(int j=1;j<sum+1;j++)
+                {
+                    if(arr[i-1]<=j)
+                    {
+                        t[i][j]=max(t[i-1][j-arr[i-1]],t[i-1][j]);
+                    }
+                    else
+                    {
+                        t[i][j]=t[i-1][j];
+                    }
+                }
+                
+            }
+            int num=t[n][sum];
+            cout<<"the position on which the dp ended vlue is:- ";
+            cout<<num<<endl;
+            cout<<"Is it possible to do equal sum partition here:-";
+            if(t[n][sum]==1)
+            {
+                cout<<"true"<<endl;
+                
+            }
+            else if(t[n][sum]==0)
+            {
+                cout<<"False"<<endl;
+            }
+        }
+    }
+    return 0;
+}
