@@ -1,0 +1,65 @@
+Given two strings, the task is to find the longest common substring present in the given strings in the same order.
+
+The substring is a contiguous sequence of characters within a string. For example, “bit” is a substring of the string “Interviewbit”.
+------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
+//this code is LCS , longest common subsequence
+
+#include<iostream>
+#include<string>
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{   
+    string a,b;
+    //taking both string as input
+    cin>>a>>b;
+    //finding out the length of each of the string
+    int m,n;
+    m=a.length();
+    n=b.length();
+    //both length of the string and stored
+    //now we have to find out the LCS,longest commmon subsequence
+    //making a matriz first
+    int t[m+1][n+1];
+    //now with initialization
+    for(int i=0;i<m+1;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(i==0 or j==0)
+            {
+                t[i][j]=0;
+            }
+        }
+    }
+    //initialization is completed
+    for(int i=1;i<m+1;i++)
+    {
+        for(int j=1;j<n+1;j++)
+        {
+            if(a[i-1]==b[j-1])
+            {
+                t[i][j]=1+t[i-1][j-1];
+            }
+            else
+            {
+                t[i][j]=0;
+            }
+        }
+    }
+    int lcs = 0;
+    for(int i=0;i<n+1;i++)
+    {
+        for(int j=0;j<m+1;j++)
+        {
+            lcs =max(lcs,t[i][j]);
+        
+        }
+    }
+    //table is ready
+    //its time for heckingthe LCS
+    cout<<"the lcs of the given string :- "<<a<<" and "<<b<<" is:- "<<lcs;
+    return 0;
+}
