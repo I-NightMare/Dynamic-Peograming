@@ -1,0 +1,56 @@
+Given a string, find the length of the longest repeating subsequence such that the two subsequences 
+don’t have same string character at the same position,
+i.e., any i’th character in the two subsequences shouldn’t have the same index in the original string. 
+-----------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------
+//this code is LCS , longest common subsequence
+
+#include<iostream>
+#include<string>
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{   
+    string a;
+    //taking both string as input
+    cin>>a;
+    string b=a;
+    //finding out the length of each of the string
+    int m,n;
+    m=a.length();
+    n=b.length();
+    //both length of the string and stored
+    //now we have to find out the LCS,longest commmon subsequence
+    //making a matriz first
+    int t[m+1][n+1];
+    //now with initialization
+    for(int i=0;i<m+1;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            if(i==0 or j==0)
+            {
+                t[i][j]=0;
+            }
+        }
+    }
+    //initialization is completed
+    for(int i=1;i<m+1;i++)
+    {
+        for(int j=1;j<n+1;j++)
+        {
+            if(a[i-1]==b[j-1] and i!=j)
+            {
+                t[i][j]=1+t[i-1][j-1];
+            }
+            else
+            {
+                t[i][j]=max(t[i-1][j],t[i][j-1]);
+            }
+        }
+    }
+    //table is ready
+    //its time for heckingthe LCS
+    cout<<"the lcs of the given string :- "<<a<<" and "<<b<<" is:- "<<t[m][n];
+    return 0;
+}
